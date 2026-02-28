@@ -5,11 +5,11 @@ import { useAudience } from '../context/AudienceContext';
 import Modal from './ui/Modal';
 import ContactForm from './ui/ContactForm';
 
-import heroBg0 from '../assets/hero-bg.webp';
-import heroBg1 from '../assets/ChatGPT Image 27 feb 2026, 20_24_41.webp';
-import heroBg2 from '../assets/ChatGPT Image 27 feb 2026, 20_34_34.webp';
-import heroBg3 from '../assets/ChatGPT Image 27 feb 2026, 20_34_40.webp';
-import heroBg4 from '../assets/ChatGPT Image 27 feb 2026, 20_42_19.webp';
+import heroBg0 from '../assets/hero-emergency-response.webp';
+import heroBg1 from '../assets/hero-territorial.webp';
+import heroBg2 from '../assets/hero-operations.webp';
+import heroBg3 from '../assets/hero-city-resilience.webp';
+import heroBg4 from '../assets/hero-firefighter-rescue.webp';
 
 const BG_IMAGES = [heroBg0, heroBg1, heroBg2, heroBg3, heroBg4];
 const BG_INTERVAL = 6000; // ms per slide
