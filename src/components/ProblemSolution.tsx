@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import { X, Check } from 'lucide-react';
 import { useAudience } from '../context/AudienceContext';
 
@@ -41,6 +41,7 @@ const ProblemSolution = () => {
           viewport={{ once: true }}
           className="text-center mb-24"
         >
+          <span className="inline-block text-xs font-bold tracking-widest uppercase text-[#FF6B35] bg-[#FF6B35]/10 border border-[#FF6B35]/20 px-4 py-1.5 rounded-full mb-6">El Problema</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             El desafío que nadie ha resuelto... <span className="text-secondary">hasta ahora</span>
           </h2>

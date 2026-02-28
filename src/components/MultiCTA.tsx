@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { Building2, TrendingUp, Flame, ArrowRight } from 'lucide-react';
 import Modal from './ui/Modal';
 import ContactForm, { type FormVariant } from './ui/ContactForm';

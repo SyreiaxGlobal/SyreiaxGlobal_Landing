@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import * as Tabs from '@radix-ui/react-tabs';
 import { Activity, GitBranch, Users, Radar, Route } from 'lucide-react';
 
@@ -453,9 +453,9 @@ const TechnologyTabs = () => {
               <Tabs.Trigger
                 key={key}
                 value={key}
-                className={`flex-shrink-0 px-4 py-2 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-all duration-200 ${activeTab === key
-                    ? 'bg-white text-[#0A1128] border-b-2 border-[#FF6B35]'
-                    : 'text-gray-400 hover:text-white hover:border-b-2 hover:border-[#4ECDC4]/50 border-b-2 border-transparent'
+                className={`flex-shrink-0 px-4 py-2 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35]/50 ${activeTab === key
+                    ? 'bg-gradient-to-r from-[#FF6B35]/20 to-[#4ECDC4]/20 text-white border-b-2 border-[#FF6B35] shadow-inner'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5 border-b-2 border-transparent hover:border-[#4ECDC4]/50'
                   }`}
               >
                 {algo.name.split(' ')[0]}

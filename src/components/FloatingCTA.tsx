@@ -32,20 +32,24 @@ export default function FloatingCTA() {
                                 initial={{ opacity: 0, y: 10, scale: 0.9 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                                className="bg-white text-gray-900 p-4 rounded-lg shadow-xl mb-2 w-64 border-l-4 border-[#FF6B35]"
+                                className="bg-[#0D1730] border border-white/10 border-l-4 border-l-[#FF6B35] p-4 rounded-xl shadow-2xl mb-2 w-68 backdrop-blur-md"
                             >
-                                <div className="flex justify-between items-start mb-2">
-                                    <h4 className="font-bold text-[#0A1128]">¿Interesado?</h4>
-                                    <button onClick={() => setIsExpanded(false)} className="text-gray-400 hover:text-gray-300">
+                                <div className="flex justify-between items-start mb-3">
+                                    <h4 className="font-bold text-white">¿Interesado?</h4>
+                                    <button
+                                        onClick={() => setIsExpanded(false)}
+                                        className="p-0.5 rounded text-gray-500 hover:text-white transition-colors"
+                                        aria-label="Cerrar"
+                                    >
                                         <X size={16} />
                                     </button>
                                 </div>
-                                <p className="text-sm text-gray-400 mb-3">
+                                <p className="text-sm text-gray-300 mb-4 leading-relaxed">
                                     Agenda una demostración personalizada de nuestra tecnología para tu ciudad.
                                 </p>
                                 <button
                                     onClick={() => { setIsExpanded(false); setShowModal(true); }}
-                                    className="w-full bg-[#0A1128] text-white py-2 rounded text-sm font-semibold hover:bg-[#1A2540] transition-colors"
+                                    className="w-full bg-gradient-to-r from-[#FF6B35] to-[#FF8C61] text-white py-2.5 rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-[#FF6B35]/25 transition-all duration-200"
                                 >
                                     Contactar Ventas
                                 </button>

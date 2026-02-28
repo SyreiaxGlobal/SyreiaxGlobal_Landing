@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { Smartphone, Database, BarChart3, Brain, ArrowRight } from 'lucide-react';
 import { useAudience } from '../context/AudienceContext';
 
@@ -136,10 +136,10 @@ const EcosystemGrid = () => {
                   window.dispatchEvent(new CustomEvent('switch-tech-tab', { detail: tabId }));
                   document.getElementById('tecnologia')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }}
-                className="flex items-center text-[#FF6B35] font-semibold hover:text-[#E55A2B] transition-colors group-hover:underline"
+                className="mt-auto flex items-center gap-2 text-sm font-semibold text-[#FF6B35] hover:text-white border border-[#FF6B35]/30 hover:border-[#FF6B35] hover:bg-[#FF6B35]/10 rounded-lg px-4 py-2 transition-all duration-200 group/btn"
               >
                 Explorar módulo
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
               </button>
             </motion.div>
           ))}

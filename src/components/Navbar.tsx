@@ -3,6 +3,7 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import { m, AnimatePresence, useReducedMotion } from 'framer-motion';
 import Modal from './ui/Modal';
 import ContactForm from './ui/ContactForm';
+import logoSyreiax from '../logosyreiax.jpg';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,15 +46,11 @@ const Navbar = () => {
               href="#home"
               className="group flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-secondary rounded-lg"
             >
-              <div className="relative w-10 h-10 flex items-center justify-center">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-xl blur-md opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative w-full h-full rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center border border-white/10">
-                  <span className="text-white font-bold text-xl">S</span>
-                </div>
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent tracking-tight group-hover:to-white transition-all duration-300">
-                SYREIAX
-              </span>
+              <img
+                src={logoSyreiax}
+                alt="Syreiax"
+                className="h-16 w-auto object-contain drop-shadow-[0_0_8px_rgba(99,102,241,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(99,102,241,0.8)] transition-all duration-300"
+              />
             </a>
           </div>
 

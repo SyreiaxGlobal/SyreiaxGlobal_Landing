@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Facebook, Twitter, Instagram, Linkedin, Send } from 'lucide-react';
 import { toast } from './ui/Toast';
+import logoSyreiax from '../logosyreiax.jpg';
 
 export default function Footer() {
     const [email, setEmail] = useState('');
@@ -22,19 +23,17 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-gradient-to-t from-[#030511] to-[#050914] text-white pt-12 pb-6 border-t border-white/5">
+        <footer id="footer" className="bg-gradient-to-t from-[#030511] to-[#050914] text-white pt-12 pb-6 border-t border-white/5">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 md:gap-6 pb-8">
                     {/* Brand + short */}
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#FF6B35] to-[#4ECDC4] flex items-center justify-center">
-                                <span className="font-bold text-white">S</span>
-                            </div>
-                            <div>
-                                <div className="text-lg font-bold tracking-tight">SYREIAX</div>
-                                <div className="text-xs text-gray-400">Gestión de emergencias con IA</div>
-                            </div>
+                            <img
+                                src={logoSyreiax}
+                                alt="Syreiax"
+                                className="h-12 w-auto object-contain drop-shadow-[0_0_8px_rgba(99,102,241,0.4)]"
+                            />
                         </div>
                         <p className="text-gray-400 text-sm mt-4 max-w-md">
                             Plataforma cívica que empodera gobiernos y servicios de emergencia con inteligencia predictiva y trazabilidad en tiempo real.

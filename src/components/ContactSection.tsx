@@ -1,7 +1,25 @@
-import { m } from 'framer-motion';
-import { Mail, MapPin, Clock, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { m, AnimatePresence } from 'framer-motion';
+import { Mail, MapPin, Clock, ArrowRight, CheckCircle, Loader2 } from 'lucide-react';
+import { toast } from './ui/Toast';
 
 const ContactSection = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate async send — replace with real API call
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitted(true);
+      toast.success('¡Mensaje enviado! Te contactaremos pronto.');
+      // Reset after 5 seconds
+      setTimeout(() => setSubmitted(false), 5000);
+    }, 1000);
+  };
+
   return (
     <section id="contacto" className="py-20 bg-gradient-to-b from-[#0A1128] to-[#050914] relative">
       {/* Subtle bg decoration */}
@@ -18,7 +36,7 @@ const ContactSection = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-3">
             ¿Listo para transformar la gestión de emergencias?
           </h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
@@ -79,8 +97,30 @@ const ContactSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <form
-              onSubmit={(e) => { e.preventDefault(); }}
+            <AnimatePresence mode="wait">
+            {submitted ? (
+              <m.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                className="bg-slate-800/40 backdrop-blur-sm border border-[#4ECDC4]/30 rounded-xl p-12 flex flex-col items-center justify-center text-center gap-4"
+              >
+                <div className="w-16 h-16 rounded-full bg-[#4ECDC4]/10 border border-[#4ECDC4]/30 flex items-center justify-center">
+                  <CheckCircle className="w-8 h-8 text-[#4ECDC4]" />
+                </div>
+                <h3 className="text-xl font-bold text-white">¡Mensaje enviado!</h3>
+                <p className="text-gray-400 text-sm max-w-xs">
+                  Nuestro equipo revisará tu mensaje y te responderá en menos de 24 horas hábiles.
+                </p>
+              </m.div>
+            ) : (
+            <m.form
+              key="form"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onSubmit={handleSubmit}
               className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-xl p-6 space-y-4"
             >
               <div className="grid sm:grid-cols-2 gap-4">
@@ -129,16 +169,28 @@ const ContactSection = () => {
 
               <button
                 type="submit"
-                className="w-full group relative bg-gradient-to-r from-[#FF6B35] to-[#FF8C61] text-white py-3 px-6 rounded-lg font-semibold text-sm overflow-hidden hover:shadow-lg hover:shadow-[#FF6B35]/20 transition-all duration-300 flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+                className="w-full group relative bg-gradient-to-r from-[#FF6B35] to-[#FF8C61] text-white py-3 px-6 rounded-lg font-semibold text-sm overflow-hidden hover:shadow-lg hover:shadow-[#FF6B35]/20 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                Enviar mensaje
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                {isSubmitting ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    Enviando…
+                  </>
+                ) : (
+                  <>
+                    Enviar mensaje
+                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </>
+                )}
               </button>
 
               <p className="text-xs text-gray-400 text-center">
                 Responderemos en menos de 24 horas hábiles
               </p>
-            </form>
+            </m.form>
+            )}
+            </AnimatePresence>
           </m.div>
         </div>
       </div>

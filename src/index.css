@@ -85,6 +85,14 @@ img, svg, canvas, video {
 
 /* Utilities */
 @layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;   /* IE / Edge */
+    scrollbar-width: none;      /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;              /* Chrome / Safari */
+  }
+
   .glass {
     background-color: rgba(255,255,255,0.05);
     -webkit-backdrop-filter: blur(12px);

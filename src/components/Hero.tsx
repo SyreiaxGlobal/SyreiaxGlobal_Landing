@@ -5,6 +5,15 @@ import { useAudience } from '../context/AudienceContext';
 import Modal from './ui/Modal';
 import ContactForm from './ui/ContactForm';
 
+import heroBg0 from '../assets/hero-bg.png';
+import heroBg1 from '../assets/ChatGPT Image 27 feb 2026, 20_24_41.png';
+import heroBg2 from '../assets/ChatGPT Image 27 feb 2026, 20_34_34.png';
+import heroBg3 from '../assets/ChatGPT Image 27 feb 2026, 20_34_40.png';
+import heroBg4 from '../assets/ChatGPT Image 27 feb 2026, 20_42_19.png';
+
+const BG_IMAGES = [heroBg0, heroBg1, heroBg2, heroBg3, heroBg4];
+const BG_INTERVAL = 6000; // ms per slide
+
 const Hero = () => {
   const { audience, content } = useAudience();
   const headlines = content.hero.headlines;
@@ -12,6 +21,7 @@ const Hero = () => {
   const [showVideoModal, setShowVideoModal] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
+  const [currentBg, setCurrentBg] = useState(0);
   const [currentHeadline, setCurrentHeadline] = useState(0);
   const prevAudienceRef = useRef(audience);
 
@@ -30,18 +40,59 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [headlines.length]);
 
+  // Background carousel — pauses when reducedMotion is on
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    const interval = setInterval(() => {
+      setCurrentBg((prev) => (prev + 1) % BG_IMAGES.length);
+    }, BG_INTERVAL);
+    return () => clearInterval(interval);
+  }, [shouldReduceMotion]);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-20">
       {/* Background Elements */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[#0A1128] opacity-90" />
-        {/* Decorative blobs: hidden on smallest screens to avoid overflow */}
+        {/* ── Background image carousel (crossfade) ── */}
+        <AnimatePresence initial={false}>
+          <m.img
+            key={currentBg}
+            src={BG_IMAGES[currentBg]}
+            alt=""
+            aria-hidden="true"
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.04 }}
+            transition={{ duration: 1.4, ease: 'easeInOut' }}
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+        </AnimatePresence>
+
+        {/* Dark overlay to ensure text readability */}
+        <div className="absolute inset-0 bg-[#0A1128]/65" />
+        {/* Decorative blobs */}
         <div className={`hidden sm:block absolute top-0 right-0 sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] bg-primary/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/6 md:translate-x-1/3 ${!shouldReduceMotion ? 'animate-pulse-glow' : ''}`} />
         <div className="hidden sm:block absolute bottom-0 left-0 sm:w-[420px] sm:h-[420px] md:w-[600px] md:h-[600px] bg-secondary/10 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/6 md:-translate-x-1/3" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-[0.15]" />
+        <div className="absolute inset-0 bg-grid-pattern opacity-[0.08]" />
 
         {/* Radial sheen */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A1128]/50 to-[#0A1128]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A1128]/30 to-[#0A1128]" />
+      </div>
+
+      {/* Slide indicator dots — above background, below content */}
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+        {BG_IMAGES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentBg(i)}
+            aria-label={`Imagen de fondo ${i + 1}`}
+            className={`rounded-full transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 ${
+              i === currentBg
+                ? 'w-6 h-2 bg-[#FF6B35]'
+                : 'w-2 h-2 bg-white/30 hover:bg-white/60'
+            }`}
+          />
+        ))}
       </div>
 
       {/* Content */}
@@ -124,8 +175,7 @@ const Hero = () => {
             <div className="w-10 h-10 rounded-full bg-white/10 border border-white/[0.08] text-white flex items-center justify-center group-hover:bg-[#FF6B35] group-hover:border-[#FF6B35] transition-all duration-200">
               <Play size={16} />
             </div>
-            <span className="hidden sm:inline">{content.hero.secondaryCta}</span>
-            <span className="inline sm:hidden">{content.hero.secondaryCta}</span>
+            <span>{content.hero.secondaryCta}</span>
           </m.button>
         </m.div>
         {/* Improved: centered discover button under CTAs */}

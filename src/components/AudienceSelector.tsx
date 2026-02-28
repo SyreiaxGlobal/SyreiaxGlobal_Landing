@@ -30,7 +30,8 @@ const AudienceSelector = () => {
 
   return (
     <div className="sticky top-18 z-40 bg-[#0A1128]/90 backdrop-blur-md border-b border-slate-800">
-      <div className="max-w-5xl mx-auto px-4 py-4">
+      <div className="max-w-5xl mx-auto px-4 py-3">
+        <p className="text-center text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2.5">Personaliza para tu rol</p>
         <div className="flex flex-wrap justify-center gap-3">
           {audiences.map((aud) => {
             const Icon = aud.icon;
