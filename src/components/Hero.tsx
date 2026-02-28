@@ -5,11 +5,11 @@ import { useAudience } from '../context/AudienceContext';
 import Modal from './ui/Modal';
 import ContactForm from './ui/ContactForm';
 
-import heroBg0 from '../assets/hero-bg.png';
-import heroBg1 from '../assets/ChatGPT Image 27 feb 2026, 20_24_41.png';
-import heroBg2 from '../assets/ChatGPT Image 27 feb 2026, 20_34_34.png';
-import heroBg3 from '../assets/ChatGPT Image 27 feb 2026, 20_34_40.png';
-import heroBg4 from '../assets/ChatGPT Image 27 feb 2026, 20_42_19.png';
+import heroBg0 from '../assets/hero-bg.webp';
+import heroBg1 from '../assets/ChatGPT Image 27 feb 2026, 20_24_41.webp';
+import heroBg2 from '../assets/ChatGPT Image 27 feb 2026, 20_34_34.webp';
+import heroBg3 from '../assets/ChatGPT Image 27 feb 2026, 20_34_40.webp';
+import heroBg4 from '../assets/ChatGPT Image 27 feb 2026, 20_42_19.webp';
 
 const BG_IMAGES = [heroBg0, heroBg1, heroBg2, heroBg3, heroBg4];
 const BG_INTERVAL = 6000; // ms per slide
@@ -53,20 +53,22 @@ const Hero = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-20">
       {/* Background Elements */}
       <div className="absolute inset-0 z-0">
-        {/* ── Background image carousel (crossfade) ── */}
-        <AnimatePresence initial={false}>
-          <m.img
-            key={currentBg}
-            src={BG_IMAGES[currentBg]}
+        {/* ── Background image carousel — all images stacked in DOM so the
+            browser fetches them all immediately; only opacity animates (GPU) ── */}
+        {BG_IMAGES.map((src, i) => (
+          <img
+            key={i}
+            src={src}
             alt=""
             aria-hidden="true"
-            initial={{ opacity: 0, scale: 1.04 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.04 }}
-            transition={{ duration: 1.4, ease: 'easeInOut' }}
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            // First image: high priority + sync decode so it paints on first frame
+            fetchPriority={i === 0 ? 'high' : 'low'}
+            decoding={i === 0 ? 'sync' : 'async'}
+            loading="eager"
+            className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[1400ms] ease-in-out"
+            style={{ opacity: i === currentBg ? 1 : 0, willChange: 'opacity' }}
           />
-        </AnimatePresence>
+        ))}
 
         {/* Dark overlay to ensure text readability */}
         <div className="absolute inset-0 bg-[#0A1128]/65" />
